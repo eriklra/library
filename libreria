@@ -1,0 +1,237 @@
+drop database libreria;
+create database libreria;
+use libreria;
+
+CREATE TABLE libro(
+  id_libro INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  estatus INT NOT NULL,
+  nombre VARCHAR(64) NOT NULL,
+  sinopsis VARCHAR(512) NOT NULL,
+  paginas INT NOT NULL,
+  imagen VARCHAR(128) NOT NULL,
+  autor VARCHAR(64) NOT NULL,
+  propietario INT NOT NULL,
+  genero VARCHAR(64) NOT NULL,
+  FOREIGN KEY(propietario) REFERENCES usuario(id_usuario)
+);
+
+CREATE TABLE usuario(
+  id_usuario INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  tipo INT NOT NULL,
+  status INT NOT NULL,
+  nombre VARCHAR(128) NOT NULL,
+  correo VARCHAR(64) NOT NULL,
+  contrasena VARCHAR(64) NOT NULL,
+  libros_solicitados INT NOT NULL,
+  libros_propios INT NOT NULL
+);
+
+CREATE TABLE prestamos(
+  fecha_entrega date NOT NULL,
+  id_libro INT NOT NULL, 
+  id_usuario INT NOT NULL,
+  fecha_regreso date NOT NULL,
+  estatus INT NOT NULL,
+  FOREIGN KEY(id_libro) REFERENCES libro(id_libro),
+  FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario),
+  PRIMARY KEY(id_libro,id_usuario,fecha_entrega)
+);
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(1, 'Disponible', 'Moby Dick', 'La irracional obsesión por la venganza de un hombre que quiere acabar con el que él considera su enemigo a toda costa.
+El capitán Ahab, apoyado sobre su pierna fabricada con una mandíbula de cachalote, empuja a su tripulación del Pequod al desastre en su obsesión por acabar con la ballena blanca,
+con Moby Dick; esa reencarnación del mal que mutiló su cuerpo y su alma para siempre. Una novela de aventuras imprescindible, un compendio sobre los balleneros y el mar y un clásico de la literatura universal de todos los tiempos.',
+184, "libro1.jpg", 'Herman Melville', 3, 'Aventura' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(2, 'Disponible', 'La vuelta al mundo en 80 dias', 'Si Phileas Fogg se propone algo, aunque sea dar la vuelta al mundo en ochenta días en pleno siglo XIX, más vale que no apuestes en contra. 
+Porque se pondrá a ello de inmediato y tomará trenes, barcos, trineos y elefantes si es necesario. Acompáñale en su periplo, junto a su criado Jean Passepartout, y con el detective Fix pisándole los talones, convencido de que es el autor del robo de un banco. 
+Nosotros solo podemos añorar lo sencilla que era la vida durante el Imperio británico, si eras un caballero británico, claro.',
+304, "libro2.jpg", 'Julio Verne', 1, 'Aventura' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(3, 'Disponible', 'Juego de tronos', 'Es otoño en Westeros, y pronto llegará un invierno que durará décadas. 
+Baratheon el Usurpador reina, Daenerys huye y Edward Stark, Guardián de las Tierras del Norte es llamado a palacio. 
+Este es el primer libro de una saga que ha encogido los corazones de millones de personas, y los que quedan. 
+Capítulos cortos, miríadas de personajes, intriga, aventuras y la sensación de que cualquiera puede morir en cualquier momento. 
+Si sus 800 páginas te parecen muchas y las ocho de la serie, demasiadas temporadas, en este tapiz te cuentan la trama en dos patadas.',
+672, "libro3.jpg", 'George R.R Martin', 6, 'Aventura' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(4, 'Disponible', 'La princesa prometida', 'Narra una versión ficticia de la vida y familia del autor, de las aventuras y desventuras de sus antepasados. 
+Es una novela donde hay espadachines, amor imperecedero, odio intenso y venganzas despiadadas. Gusta a lectores de todo tipo porque tiene de todo y no le falta de nada. 
+Es amena, tierna, valiente. Una obra maestra. Te verás a ti mismo diciendo: "Hola. Me llamo Íñigo Montoya. Tú mataste a mi padre. Prepárate a morir."',
+504, "libro4.jpg", 'William Goldman', 10, 'Aventura' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(5, 'Disponible', 'Veinte mil leguas de viaje submarino', '¿Un monstruo misterioso? No, un mucho más misterioso submarino que amenaza el tráfico marítimo internacional. 
+Se trata de la nave diseñada y gobernada por el Capitán Nemo, un hombre con un ansia de justicia implacable, no exenta de un deseo de venganza, que asegura haber perdido la fe en la humanidad. 
+Aventura y tecnología punta, nihilismo y calamares. Esta edición cuenta, además, con las maravillosas ilustraciones de Samuel Castaño. Una de las mejores obras de ciencia-ficción de todos los tiempos.',
+320, "libro5.jpg", 'Jules Verne', 7, 'Aventura' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(6, 'Disponible', 'Orgullo y Prejuicio', 'Publicada por primera vez en 1813 de forma anónima, Orgullo y prejuicio narra cómo Elizabeth Bennet y Fitzwilliam Darcy hacen frente a los arraigados prejuicios de la época cuando surge, de forma inesperada, el amor entre ellos. ¡Un clásico!',
+312, "libro6.jpg", 'Jane Austen', 1, 'Romance' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(7, 'Disponible', 'Bajo la misma estrella', 'Emotiva y desgarradora. Así se puede definir la historia de amor de estos dos adolescentes con cáncer que no te dejará indiferente.',
+304, "libro7.jpg", 'John Green', 8, 'Romance' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(8, 'Disponible', 'El cuaderno de Noah', 'Una historia de amor imposible que se mantiene intacta durante años, que encandilado a lectores de todo el mundo y que incluso ha sido llevada al cine.',
+192, "libro8.jpg", 'Nicholas Sparks', 4, 'Romance' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(9, 'Disponible', 'Uno siempre cambia al amor de su vida', 'Este no es un libro romántico al uso... En estas páginas encontrarás los mejores consejos para superar las etapas que vienen después de una ruptura amorosa.',
+234, "libro9.jpg", 'Amalia Andrade', 10, 'Romance' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(10, 'Disponible', 'Perdona si te llamo amor', 'Esta historia de amor ha triunfado en medio mundo... Narra la relación entre Niki, una joven responsable que cursa su último año de instituto, con Alessandro, un exitoso publicista de treinta y siete años. ¿Funcionará lo suyo a pesar de la diferencia de edad?',
+704, "libro10.jpg", 'Federico Moccia', 6, 'Romance' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(11, 'Disponible', 'Reina Roja', 'Antonia Scott, quien a pesar de no ser criminalista ha resuelto casos peligrosos que ningún otro ha logrado y eso, le ha jugado en contra. Por alguna razón, Antonia lleva mucho tiempo escondida en un ático y el escuchar pasos cerca no le gusta, porque sea quien sea, está segura que viene por ella.',
+480, "libro11.jpg", 'Juan Gómez-Jurado', 3, 'Policiaca' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(12, 'Disponible', 'La novia gitana', 'Una novela policial oscura ambientada en el que las calles de Madrid se han llenado de asesinatos. El inspector encargado de resolver el caso, atormentado con sus vivencias y problemas personales, añaden un plus a la trama principal. 
+Se podría decir que un buen libro debe empatizar con los personajes, y en esta entrega las descripciones lo consiguen.',
+408, "libro12.jpg", 'Carmen Mola', 5, 'Policiaca' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(13, 'Disponible', 'Nunca', ' La historia retrata a la perfección los contrastes de la política exterior. La forma de contarlo, la multiplicidad de lugares y su escritura, el arma del autor para dejarte sin uñas tras horas leyendo una trama que consigue hacer verosímil lo imposible.',
+832, "libro13.jpg", 'Ken Follet', 7, 'Policiaca' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(14, 'Disponible', 'La tumba de Sarah', 'Tracy vivía junto a su hermana en un pueblo tranquilo en el que todos se conocían, hasta que un día su querida Sarah es violada y asesinada. Aunque Edmund House paga condena desde hace veinte años por el crudo asesinato, Tracy duda que él sea el verdadero responsable. Con el deseo de hacer justicia por su hermana, decide hacerse detective de homicidios en Seattle.',
+398, "libro14.jpg", 'Robert Dugoni', 2, 'Policiaca' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(15, 'Disponible', 'Su ultimo suspiro', 'Una nueva historia policial queda en manos de Tracy Crosswhite, luego de resolver el asesinato de su hermana. Esta vez deberá investigar el asesinato de chicas jóvenes en diferentes moteles ubicados al norte de Seattle, pero tras el aumento de las víctimas, las pistas cada vez son menos. Pero Tracy da con una pieza clave para resolver el misterio, un caso similar de hace diez años atrás, pero su propio superior desea impedírselo. ¿Por qué?',
+466, "libro15.jpg", 'Robert Dugoni', 2, 'Policiaca' );
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(1, 0, 'Denisse Herrera', 'herreradenisse521@gmail.com', 'deni21', 0, 2);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(2, 0, 'Jose Luis Alcantar', 'luisalc@gmail.com', 'luis01', 0, 2);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(3, 0, 'Erik Lara', 'erikl@gmail.com', 'erik02', 0, 2);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(4, 1, 'Johny Sanchez', 'johnyysan@gmail.com', '123', 0, 1);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(5, 1, 'Carlos Marquez', 'carmar@gmail.com', '1234', 0, 1);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(6, 1, 'Ivan Martinez', 'ivanmar@gmail.com', '12345', 0, 2);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(7, 1, 'Sophia Zamora', 'sophzam@gmail.com', '123456', 0, 2);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(8, 1, 'Paola Hernandez', 'paoher@gmail.com', '1234567', 0, 1);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(9, 1, 'Daniela Guzman', 'danguz@gmail.com', '12345678', 0, 0);
+
+INSERT INTO usuario (id_usuario, tipo, nombre, correo, contrasena, libros_solicitados, libros_propios)
+VALUES(10, 1, 'Karen Pimentel', 'karpim@gmail.com', '123456789', 0, 2);
+
+
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(16, 'Disponible', 'La máquina del tiempo', 'la aventura de exploración futura y el adoctrinamiento de sus lectores. 
+El retrato de una sociedad futura dividida entre gente hipersensible y mostrencos monstruosos es fascinante, y términos como Morlock han pasado al acervo popular.',
+144, "libro16.jpg", 'Herbert George Wells', 9, 'Ciencia Ficcion' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(17, 'Disponible', 'En las montañas de la locura', 'En las montañas de la locura es la memoria en primera persona de un geólogo de la Universidad de Miskatonic sobre una reciente expedición dirigida por él al continente antártico y su trágico final.',
+176, "libro17.jpg", 'H.P Lovecraft', 4, 'Ciencia Ficcion' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(18, 'Disponible', 'Soy leyenda', 'Robert Neville es el único superviviente de una guerra bacteriológica que ha asolado el planeta y convertido al resto de la humanidad en vampiros. Su vida se ha reducido a asesinar el máximo número posible de estos seres sanguinarios durante el día, y a soportar su asedio cada noche. 
+Para ellos, el auténtico monstruo es este hombre que lucha por subsistir en un nuevo orden establecido.',
+176, "libro18.jpg", 'Richard Matheson', 6, 'Ciencia Ficcion' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(19, 'Disponible', 'El fin de la eternidad', 'En el siglo XXVII, la Tierra funda una organización llamada Eternidad,  enviando sus emisarios al pasado y al futuro para abrir el comercio  entre las diferentes epocas, y para alterar la larga y a veces trágica  historia de la raza humana. El proyecto estaba integrado sólo por los  mejores y más brillantes exponentes de cada siglo: personas que dejaron  de lado sus propias vidas para dedicarse a servir a los demás.',
+288, "libro19.jpg", 'Isaac Asimov', 7, 'Ciencia Ficcion' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(20, 'Disponible', 'Las estrellas, mi destino', 'En el siglo xxv, cuando las técnicas de teleportación han cambiado de forma radical la sociedad de la Tierra, un hombre motivado por pasiones extremas emprende un carrera desesperada por cambiarse a sí mismo. Gully Foyle fue abandonado a su suerte y logró sobrevivir milagrosamente a una situación sin esperanzas; desde entonces ha venido acumulando riquezas y poder con un único objetivo: vengarse.',
+240, "libro20.jpg", 'Alfred Bester', 10, 'Ciencia Ficcion' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(21, 'Disponible', 'Variaciones sobre un tema dado', 'Variaciones sobre un tema dado (2018) es un largo poema de amor escrito tras la muerte de su marido, un extenso monólogo dramático donde la pérdida personal se convierte en una victoria del amor sobre la muerte: la poeta cambia la tradición de la elegía trazando un viaje místico en el que transforma la ausencia del amado en una presencia real.',
+152, "libro21.jpg", 'Ana Blandiana', 3, 'Poesia' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(22, 'Disponible', 'Adiós al frío', ' Escribe sobre la razón de los lamentos, sobre las huellas de la vida que necesitamos entender para tomar conciencia de lo que somos y de lo que ya no somos. Es la necesidad de decir, de decirse, de contarlo, de permanecer en una voz.',
+66, "libro22.jpg", 'Elvira Sastre', 1, 'Poesia' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(23, 'Disponible', 'La ataraxia del corazón', 'La ataraxia del corazón es su primer poemario y en él somos testigos de cómo la autora rebusca en lo más profundo de sus vivencias para mostrarnos las heridas que suceden a una guerra.',
+270, "libro23.jpg", 'Sara Búho', 2, 'Poesia' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(24, 'Disponible', 'El amor, las mujeres y la vida', 'Este poemario en el que Mario Benedetti vuelca la mayor parte de sus poemas de amor. Unos poemas que forman ya parte del imaginario popular y cuyos versos te resultarán, incluso, familiares.',
+208, "libro24.jpg", 'Mario Benedetti', 9, 'Poesia' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(25, 'Disponible', 'La inercia del silencio', 'Un libro en el que se entrecruzan las palabras de una niña que creció asustada y las de la mujer que se atrevió a entender sus miedos hablando con ella. Un recorrido por la niña que muchas fuimos y por la mujer que ahora somos.',
+144, "libro25.jpg", 'Sara Búho', 1, 'Poesia' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(26, 'Disponible', 'Las aventuras de Sherlock Holmes', 'Las aventuras de Sherlock Holmes es su recopilación de relatos más famosa, donde cada caso es una intriga distinta y un puzle deductivo al que jugar sabiendo que nadie es más listo de Sherlock, elemental querido Watson.',
+384, "libro26.jpg", 'Arthur Conan Doyle', 2, 'Misterio' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(27, 'Disponible', 'El sueño eterno', 'Frente a los detectives de manta, pipa y sofá, los pioneros de la novela negra decidieron que los héroes de un misterio y de una intriga tenían que caminar por los bajos fondos y mancharse las manos si querían resolver de verdad un crimen.',
+368, "libro27.jpg", 'Raymond Chandler', 5, 'Misterio' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(28, 'Disponible', 'Huye rápido, vete lejos', 'Una historia oscura con brochazos de fantasía sobre la posibilidad de que la peste negra vuelva a París. Y todo envuelto en una exquisita escritura, que se aleja del lenguaje coloquial típico del género.',
+416, "libro28.jpg", 'Fred Vargas', 6, 'Misterio' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(29, 'Disponible', 'El instinto', 'Es un thriller psicológico, una historia terrible sobre los orígenes de la maldad y un fino análisis de los traumas familiares con los que carga todo ser humano. Su protagonista, Blythe, parece una mujer felizmente casada al cuidado de su hija. Pero nada es en realidad lo que parece, porque en su interior las preguntas sin respuesta empiezan a brotar hasta que cobran sentido.',
+336, "libro29.jpg", 'Ashley Audrain', 7, 'Misterio' );
+
+INSERT INTO libro (id_libro, estatus, nombre, sinopsis, paginas, imagen, autor, propietario, genero)
+VALUES(30, 'Disponible', 'Cuentos completos', 'El autor norteamericano Edgar Allan Poe (1809-1849) ocupa un lugar relevante en el panteón de los escritores más admirados, imitados y estudiados de la literatura universal. Considerado por muchos como un precursor del cuento corto y de terror como género literario, Edgar Allan Poe escribió también poesía, ensayos y crítica literaria',
+936, "libro30.jpg", 'Edgar Allan Poe', 9, 'Misterio' );
+
+
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/20', 1, 7, '2023/05/28', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 1;
+UPDATE usuario SET libros_solicitados = 1 WHERE id_usuario = 7;
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/21', 2, 7, '2023/05/29', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 2;
+UPDATE usuario SET libros_solicitados = 2 WHERE id_usuario = 7;
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/25', 5, 5, '2023/05/30', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 5;
+UPDATE usuario SET libros_solicitados = 1 WHERE id_usuario = 5;
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/25', 13, 2, '2023/06/04', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 13;
+UPDATE usuario SET libros_solicitados = 1 WHERE id_usuario = 2;
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/20', 9, 5, '2023/05/26', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 9;
+UPDATE usuario SET libros_solicitados = 1 WHERE id_usuario = 5;
+
+INSERT INTO prestamos(fecha_entrega, id_libro, id_usuario, fecha_regreso, estatus)
+VALUES('2023/05/29', 30, 6, '2023/06/12', '1');
+UPDATE libro SET estatus = 1 WHERE id_libro = 30;
+UPDATE usuario SET libros_solicitados = 1 WHERE id_usuario = 6;
